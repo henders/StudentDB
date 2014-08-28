@@ -1,4 +1,4 @@
-=== Simple Student Query Engine ===
+# Simple Student Query Engine
 
 Built to solve:
 ```
@@ -6,8 +6,8 @@ Given a list of test results (each with a test date, Student ID, and the student
 ```
 
 Notes:
-* For an example implementation, I determined the "external data source" was a file.
-** Obviously this could easily be a REST/SOAP API, DB, binary dump, etc...
+* For an example implementation, I decided the "external data source" would be a file.
+  * Obviously this could easily be a REST/SOAP API, DB, binary dump, etc...
 * I also chose a cmd-line interface over a REST or similar.
 
 ```
@@ -21,25 +21,25 @@ Usage: main.rb [options]
 ==== Interview Requirements ====
 
 * Works?
-** You should be able to test that it works by providing a text file with sample data
+  * You should be able to test that it works by providing a text file with sample data
 and then querying the program via the command line.
-** E.g., 'ruby main.rb -f sampledata.txt -i 0002 -s 1409258913 -e 1409258914'
+  * E.g., 'ruby main.rb -f sampledata.txt -i 0002 -s 1409258913 -e 1409258914'
 
 * Tested?
-** A series of small unit and functional tests exercise the code
-** Run them with 'ruby tests.rb'
+  * A series of small unit and functional tests exercise the code
+  * Run them with 'ruby tests.rb'
 
 * Well designed?
-** Designed using the strategy pattern to allow external sources to be swapped out, e.g. REST API instead of the File loader.
-** Assumption was that there was a max number of students that would fit into memory
-** Number of highest grades to average is mutable by just specifying an optional parameter.
-** Score dates are stored as timestamps which simplifies a lot of things, and if needed can be converted back to human-readable for display purposes.
+  * Designed using the strategy pattern to allow external sources to be swapped out, e.g. REST API instead of the File loader.
+  * Assumption was that there was a max number of students that would fit into memory
+  * Number of highest grades to average is mutable by just specifying an optional parameter.
+  * Score dates are stored as timestamps which simplifies a lot of things, and if needed can be converted back to human-readable for display purposes.
 
 * Code readability?
-** Code is short thanks to Ruby's duck and dynamic typing.
+  * Code is short thanks to Ruby's duck and dynamic typing.
 
 * Extendible and maintainable?
-** Should be able to swap out various external sources easily without modifying core code.
-** Code was written to be readable rather than optimized.
-** Should be no problem to put different interfaces on top of this code, e.g. REST interface.
-** Number of highest grades is not hardcoded, but does default to 5.
+  * Should be able to swap out various external sources easily without modifying core code.
+  * Code was written to be readable rather than optimized.
+  * Should be no problem to put different interfaces on top of this code, e.g. REST interface.
+  * Number of highest grades is not hardcoded, but does default to 5.

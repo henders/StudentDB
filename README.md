@@ -2,7 +2,10 @@
 
 Built to solve:
 ```
-Given a list of test results (each with a test date, Student ID, and the student¹s Score) from an external data source, return the Final Score for each student for a user-provided date range. A student's Final Score is calculated as the average of his/her 5 highest test scores. You can assume each student has at least 5 test scores.
+Given a list of test results (each with a test date, Student ID, and the student¹s Score)
+from an external data source, return the Final Score for each student for a user-provided
+date range. A student's Final Score is calculated as the average of his/her 5 highest test
+scores. You can assume each student has at least 5 test scores.
 ```
 
 Notes:
@@ -18,7 +21,7 @@ Usage: main.rb [options]
     -e, --end [TIME]                 End Timestamp, e.g. 1409258913
 ```
 
-==== Interview Requirements ====
+## Interview Requirements
 
 * Works?
   * You should be able to test that it works by providing a text file with sample data

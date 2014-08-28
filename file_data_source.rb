@@ -1,4 +1,5 @@
-# Deals with files as the data source
+# Deals with files as the data source for student test result data
+# Each record is on 1 line formatted by: <timestamp> <student id> <score>
 # E.g.
 # > cat datasource.txt
 # 1409054979 0001 85
@@ -15,7 +16,8 @@ class FileDataSource
 		@filepath = filepath
 	end
 
-	def load_data(students)
+	# Get the list of students, optionally filtered by 'id'
+	def get_students(students, filter_id = nil)
 		if !@filepath or !File.exist? @filepath
 			raise "File '#{@filepath}' does not exist"
 		else
@@ -23,12 +25,16 @@ class FileDataSource
 			# Going to assume format of: <date> <id> <score>
 			# We'll allow spaces, tabs, or commas to delimit entries
 			@file.each do |line|
-				(date, id, score) = line.strip.split(/[ \t,]/)
-				student_score = StudentScore.new(date.to_i, score.to_i)
-				if !students.has_key? id
-					students[id] = []
+				fields = line.strip.split(/[ \t,]/)
+				if fields.length != 3
+					raise "Badly formatted input file #{@filepath}!"
 				end
-				students[id] << student_score
+				(date, id, score) = fields
+				student_score = StudentScore.new(date.to_i, id, score.to_i)
+				# Filter if requested
+				if !filter_id or filter_id == student_score.id
+					students << student_score
+				end
 			end
 		end
 	end

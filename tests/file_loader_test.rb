@@ -1,10 +1,10 @@
 gem "minitest"
 require "minitest/autorun"
 
-require_relative 'student_db'
+require_relative '../file_data_source'
 
 
-class TestFileLoader < MiniTest::Test
+class TestFileLoader < MiniTest::Unit::TestCase
 	def setup
 		file = File.open("test_data.txt", "w")
 		file.write("#{Time.now.to_i - 10} 0001 45\n")
@@ -22,33 +22,32 @@ class TestFileLoader < MiniTest::Test
 		file.close
 	end
 
-	def test_initial_load
+	def test_basic_load
 		loader = FileDataSource.new("test_data.txt")
-		students = {}
-		loader.load_data(students)
-		assert_not_equal nil, students
-		assert_equal 2, students.length
-		assert_equal 12, students["123"].length
+		students = []
+		loader.get_students(students)
+		assert students
+		assert_equal 12, students.length
 	end
-end
 
-class TestDataSource < MiniTest::Test
-	def setup
+	def test_load_with_filter
+		loader = FileDataSource.new("test_data.txt")
+		students = []
+		loader.get_students(students, "0002")
+		assert students
+		assert_equal 6, students.length
+	end
+
+	def test_bad_format_throws_exception
 		file = File.open("test_data.txt", "w")
-		file.write("#{Time.now.to_i - 6} 123 91\n")
-		file.write("#{Time.now.to_i - 5} 123 64\n")
+		file.write("0001 45\n")
 		file.close
-	end
 
-	def after
-		File.delete("test_data.txt")
-	end
-
-	def test_using_file_source
-		loader = DataSource.new(FileDataSource.new("test_data.txt"))
-		assert_not_equal nil, students
-		assert_equal 1, students.length
-		assert_equal 2, loader.students["123"].length
+		loader = FileDataSource.new("test_data.txt")
+		students = []
+		assert_raises RuntimeError do
+			loader.get_students(students)
+		end
 	end
 
 end

@@ -1,6 +1,6 @@
 # Simple Student Query Engine
 
-Built to solve:
+### Built to solve:
 ```
 Given a list of test results (each with a test date, Student ID, and the student's Score)
 from an external data source, return the Final Score for each student for a user-provided
@@ -8,10 +8,12 @@ date range. A student's Final Score is calculated as the average of his/her 5 hi
 scores. You can assume each student has at least 5 test scores.
 ```
 
-Notes:
+### Notes:
 * For an example implementation, I decided the "external data source" would be a file.
   * Obviously this could easily be a REST/SOAP API, DB, binary dump, etc...
 * I also chose a cmd-line interface over a REST or similar.
+* For a throwaway code project like this, I focused on code-readability, and not optimization.
+
 
 ```
 Usage: main.rb [options]
@@ -20,6 +22,21 @@ Usage: main.rb [options]
     -s, --start [TIME]               Start Timestamp for student test results, e.g. 1409258913
     -e, --end [TIME]                 End Timestamp for student test results, e.g. 1409258913
 ```
+
+### Example output:
+```
+> ruby main.rb -s 1 -e 2409258915
+Defaulting file input to 'sampledata.txt'!
+Student 0001: 90%
+Student 0002: 86%
+```
+
+### Code Layout:
+* student_datasource.rb - holds the main interface for accessing data loaded from an external source.
+* student_score.rb - contains the class definition for the record representing an instance of a test result.
+* score_calculator.rb - holds the algorithm for determining the final score.
+* file_data_source.rb - An example implementation of an external source reader.
+
 
 ## Interview Requirements
 
@@ -30,7 +47,7 @@ and then querying the program via the command line.
 
 * Tested?
   * A series of small unit and functional tests exercise the code.
-  * Run them with 'rake test'
+  * Run them with 'rake test'.
 
 * Well designed?
   * Designed using the strategy pattern to allow external sources to be swapped out, e.g. REST API instead of the File loader. Instead of instantiating a FileDataSource object to pass to our StudentDB interface, maybe instantiate a SqlDataSource object.

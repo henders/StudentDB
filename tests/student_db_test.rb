@@ -21,7 +21,7 @@ class TestDataSource < MiniTest::Unit::TestCase
 			students << StudentScore.new(1,"2",3)
 		end
 	end
-	def test_external_data_source
+	def test_fake_external_data_source
 
 		loader = StudentDataSource.new(FakeDataSource.new)
 		students = loader.get_students

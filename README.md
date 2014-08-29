@@ -36,6 +36,15 @@ Student 0002: 86%
 * student_score.rb - contains the class definition for the record representing an instance of a test result.
 * score_calculator.rb - holds the algorithm for determining the final score.
 * file_data_source.rb - An example implementation of an external source reader.
+* tests/calculator_test.rb - unit tests for the final score calculator.
+* tests/file_loader_test.rb - unit tests for the loading of student data from file.
+* tests/student_db_test - unit and functional tests for the main interface for external data sources.
+
+
+### Running the code:
+* Run the following commands from the root directory of wherever you put these files.
+* To run based on sample data located in 'sampledata.txt': 'ruby main.rb -s 1 -e 2409258915'
+* To run the test suite: 'rake test'
 
 
 ## Interview Requirements
